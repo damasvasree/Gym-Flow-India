@@ -1,0 +1,5 @@
+{
+  "name": "GymFlow India",
+  "description": "Smart Fitness Ecosystem for India. Personalized workout plans, diet planning, trainer bookings, and progress tracking with a premium dark-themed experience.",
+  "requestFramePermissions": ["camera", "microphone", "geolocation"]
+}

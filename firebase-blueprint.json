@@ -1,0 +1,102 @@
+{
+  "entities": {
+    "users": {
+      "title": "User",
+      "description": "User profile and fitness data",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "displayName": { "type": "string" },
+        "email": { "type": "string", "format": "email" },
+        "photoURL": { "type": "string", "format": "uri" },
+        "age": { "type": "number" },
+        "weight": { "type": "number" },
+        "height": { "type": "number" },
+        "goal": { "type": "string", "enum": ["weight_loss", "muscle_gain", "general_fitness"] },
+        "dietPreference": { "type": "string", "enum": ["veg", "non-veg"] },
+        "membershipType": { "type": "string", "enum": ["free", "pro", "elite"] },
+        "points": { "type": "number" },
+        "streak": { "type": "number" },
+        "role": { "type": "string", "enum": ["user", "admin", "trainer"] }
+      },
+      "required": ["uid", "email", "role"]
+    },
+    "trainers": {
+      "title": "Trainer",
+      "description": "Fitness trainer profiles",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "name": { "type": "string" },
+        "specialization": { "type": "string" },
+        "experience": { "type": "number" },
+        "rating": { "type": "number" },
+        "bio": { "type": "string" },
+        "photoURL": { "type": "string", "format": "uri" },
+        "availability": { "type": "array", "items": { "type": "string" } }
+      },
+      "required": ["uid", "name", "specialization"]
+    },
+    "bookings": {
+      "title": "Booking",
+      "description": "Trainer or class bookings",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "trainerId": { "type": "string" },
+        "date": { "type": "string", "format": "date" },
+        "timeSlot": { "type": "string" },
+        "status": { "type": "string", "enum": ["pending", "confirmed", "cancelled"] },
+        "type": { "type": "string", "enum": ["personal", "class"] }
+      },
+      "required": ["userId", "trainerId", "date", "timeSlot", "status"]
+    },
+    "progress": {
+      "title": "Progress",
+      "description": "Daily user progress tracking",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "date": { "type": "string", "format": "date" },
+        "weight": { "type": "number" },
+        "caloriesBurned": { "type": "number" },
+        "workoutCompleted": { "type": "boolean" }
+      },
+      "required": ["userId", "date"]
+    },
+    "plans": {
+      "title": "Plan",
+      "description": "Personalized workout and diet plans",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "workoutPlan": { "type": "string" },
+        "dietPlan": { "type": "string" },
+        "generatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "workoutPlan", "dietPlan"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "users",
+      "description": "User profiles"
+    },
+    "/trainers/{trainerId}": {
+      "schema": "trainers",
+      "description": "Trainer profiles"
+    },
+    "/bookings/{bookingId}": {
+      "schema": "bookings",
+      "description": "User bookings"
+    },
+    "/progress/{progressId}": {
+      "schema": "progress",
+      "description": "User progress logs"
+    },
+    "/plans/{planId}": {
+      "schema": "plans",
+      "description": "User personalized plans"
+    }
+  }
+}
